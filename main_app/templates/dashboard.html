@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="d-flex justify-content-between border-bottom border-dark px-5 py-2 text-white">
+        
+        <h3 class="mr-5 h3">Welcome {{logged_in_user.first_name}}, Crank the Tunes and Let's Get Cookin'!</h3>
+
+        <div class="row">
+            <a class="mr-5" href="/recipes/create"><u>Add Your Recipe</u></a>
+            <a class="mr-5" href="/logout"><u>Log Off</u></a>
+        </div>
+                
+    </header>
+        
+        <div class="container  background mt-4 mb-3 d-flex justify-content-center pt-4">
+            <div class="container mx-auto pr-5 pl-5 scroll">
+                <h5 class="text-center p-1 h5">Favorite Recipes:</h5>
+                {% for recipe in all_recipes %}
+                    {% if logged_in_user in recipe.favorited_by.all %}
+                        <div class="mb-5 border border-dark rounded p-2 backing_dash">
+                            <h6 class=""><a class="h6_a" href="/recipes/{{recipe.id}}"><u>{{recipe.title}}</u></a></h6>
+                            <p>{{recipe.description}}</p>
+                            <p>by {{recipe.creator.first_name}}</p>
+                            <a href="/recipes/{{recipe.id}}/remove_favorite"><u><small>Remove from Favorites</small></u></a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+    
+            </div>
+            <div class="container mx-auto pr-5 pl-5 scroll">
+                <h5 class="text-center p-1 h5">All Recipes:</h5>
+                {% for recipe in all_recipes %}
+                <div class="mb-5 border border-dark rounded p-2 h5_2 backing_dash">
+                    <h6 class=""><a class="h6_a" href="/recipes/{{recipe.id}}"><u>{{recipe.title}}</u></a></h6>
+                    <p>{{recipe.description}}</p>
+                    <p>by {{recipe.creator.first_name}}</p>
+                    <p>(Favorited by {{recipe.favorited_by.all.count}} Rockin Chef{%if recipe.favorited_by.all.count > 1%}s{% endif %})</p>
+                    
+                </div>                   
+                    
+                {% endfor %}
+    
+            </div>
+        </div>
+
+        <footer class="d-flex justify-content-between border-bottom border-dark px-5 py-2 text-white">
+
+        </footer>
+</body>
+</html>

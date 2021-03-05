@@ -1,0 +1,158 @@
+.messages {
+    color: red;
+}
+
+body {
+    background-image: url("../images/flaming-guitar-3.jpg");
+    background-repeat:inherit;
+}
+
+.scroll {
+    overflow-y: scroll;
+    height: 40em;
+}
+
+.background {
+    background-image: url("../images/kitchen_4.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+
+}
+
+/* Header Style */
+
+header {
+    background-image: linear-gradient(to right, black, white);
+    
+}
+
+.h3 {
+    background: -webkit-linear-gradient( orange, red);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Index Text Style */
+
+.text_shine {
+    background: linear-gradient(to right, rgb(216, 61, 0) 20%, #2c5dff 30%, #0337e0 70%, rgb(216, 61, 0)80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: textShine 7s ease-in-out infinite alternate;
+}
+.font_size_idx {
+    font-size: 60px;
+}
+
+@keyframes textShine {
+    to {
+    background-position: 200%;
+    }
+}
+
+/*Login/Reg Styles*/
+.img {
+    height: 40em;
+}
+
+.h1_shaddow {
+    font-size: 60px;
+    color:rgb(0, 6, 88);
+    text-shadow: 0 0 5px #FF0000, 0 0 10px #0000FF;
+}
+
+.label_log_reg {
+    background: -webkit-linear-gradient(45deg, red, orange);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+    font-weight:bolder;
+}
+
+.button {
+    color: rgb(0, 6, 88);
+    background-image: linear-gradient(to right, rgb(94, 94, 94), white);
+    box-shadow: 0 0 10px #FF0000, 0 0 15px #0000FF;
+    text-shadow: 0 0 5px #FF0000, 0 0 10px #0000FF;
+    border-radius: 3em;
+}
+
+/* Text Gradient */
+
+/* .sample_not_in_use {
+    font-size: 72px;
+    background: -webkit-linear-gradient( rgb(1, 20, 190), rgb(138, 2, 2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+    
+} */
+
+/* Dashboard Styles */
+
+.backing_dash {
+    background-image: linear-gradient(lightgray, white);
+}
+
+.h5 {
+    font-size: 30px;
+    color:black;
+    text-shadow: 0 0 5px red, 0 0 10px rgb(162, 0, 255);
+}
+
+.h6_a {
+    font-size: 20px;
+    color:rgb(0, 0, 0);
+    text-shadow: 0 0 5px green, 0 0 10px blue;
+}
+
+.red {
+    color: red;
+}
+
+/* Create/ Edit recipe styles */
+
+.label_create {
+    font-size: 30px;
+    background: -webkit-linear-gradient(45deg, orange, red);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color: transparent;
+    font-weight:bolder;
+}
+
+/* View Recipe style */
+
+.text_shine_2 {
+    background: linear-gradient(to right, rgb(255, 0, 0) 20%, #2c5dff 30%, #0337e0 70%, rgb(255, 0, 0)80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: textShine 7s ease-in-out infinite alternate;
+}
+
+.content {
+    background-color:aliceblue;
+    border: .5em solid black;
+    border-radius: 1em;
+    padding: 2em;
+}
+
+.font_size_view {
+    font-size: 40px;
+}
+
+.comments {
+    background-color:aliceblue;
+    border: .5em solid black;
+    border-radius: 1em;
+    padding: 1em;
+}
+
+.links {
+    font-size: 20px;
+    color:whitesmoke;
+    text-shadow: 0 0 5px red, 0 0 10px rgb(162, 0, 255);
+}

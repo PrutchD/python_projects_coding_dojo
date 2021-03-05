@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Recipe</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="d-flex justify-content-between border-bottom border-dark px-5 py-2 text-white">
+        
+        <h3 class="mr-5 h3">Let's get this Kitchen Rockin' {{logged_in_user.first_name}}!</h3>
+
+        <div class="row">
+            <a class="mr-5" href="/recipes/create"><u>Add Your Recipe</u></a>
+            <a class="mr-5" href="/dashboard"><u>Dashboard</u></a>
+            <a class="mr-5" href="/logout"><u>Log Off</u></a>
+        </div>
+                
+    </header>
+
+    <div class="container background mt-4 d-flex justify-content-center pt-4 text-center">
+        <div class="container scroll">  
+
+            <h3 class="text_shine_2 font-weight-bold font_size_view">{{this_recipe.title}}</h3>
+            <div class="container w-50">
+                <div class="container mx-auto pr-5 pl-5 ">
+        
+                    <div>
+                        <p class="content">{{this_recipe.description}}</p>
+                    </div>
+        
+                    <div>
+                        <h5 class="h5">Ingredients:</h5>
+                        <ul class="content">
+                            {% for ingredient in ingredients %}
+                                <li class="pb-1">{{ingredient}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+        
+                    <div>
+                        <h5 class="h5">Instructions:</h5>
+                        <ul class="content">
+                            {% for instruction in instructions %}
+                                <li class="pb-1">{{instruction}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+        
+                        <div>
+                            <h5 class="h5">Notes:</h5>
+                            <ul class="content">
+                                {% for note in notes %}
+                                    <li class="pb-1">{{note}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+        
+                    {% if this_recipe.creator.id == logged_in_user.id %}
+                        <div class="container d-flex justify-content-center">
+                            <div class="row">
+                                <a class="mr-3 links" href="/recipes/{{this_recipe.id}}/edit"><u>Edit</u></a>
+                                <a class="mr-3 links" href="/recipes/{{this_recipe.id}}/destroy"><u>Delete (Can not be Undone)</u></a>
+                            </div>
+                        </div>
+                        {% endif %}
+        
+                    {% if logged_in_user not in this_recipe.favorited_by.all %}
+                    <div class="container d-flex justify-content-center">
+                        <div class="row">
+                            <a class="mr-3 links" href="/recipes/{{this_recipe.id}}/favorite"><u>Add to Favorites</u></a>
+                        </div>
+                    </div>
+                    {% endif %}
+        
+                </div>
+            </div>
+        
+            <div class="container d-flex w-50 justify-content-center pt-4">
+                <div class="container mx-auto pr-5 pl-5">
+        
+                    {% if this_recipe.creator.id != logged_in_user.id %}
+                        <form action="/recipes/{{this_recipe.id}}/comment" method="post">
+                            {% csrf_token %}
+                            <div class="form-group d-flex justify-content-between">
+                                <label class="mr-3 h5" for="comment">Add Comment:</label>
+                                <textarea 
+                                class="form-control content"
+                                name="comment" id="comment" 
+                                style="height: 100px"
+                                ></textarea>
+                            </div>
+        
+                            <div class="container d-flex justify-content-center">
+                                <div class="row">
+                                    <button class="button" type="submit">Post</button>
+                                </div>
+                            </div>
+                        </form>
+                        {% if messages %}
+                            <ul class="messages">    
+                                {% for message in messages %}    
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+        
+                </div>
+            </div>
+        
+            <div class="container d-flex w-50 justify-content-center pt-4">
+                <div class="container mx-auto pr-5 pl-5">
+        
+                    <h3 class="h5">Comments:</h3>
+                    <div class="comments">
+                        {% for comment in comments %}
+                            <p>{{comment.content}}</p>
+                            <p>{{comment.user.first_name}} - {{comment.created_at}}
+                            {% if comment.user.id == logged_in_user.id %}
+                                <a href="/recipes/{{this_recipe.id}}/{{comment.id}}/destroy_comment"><u>Delete Post</u></a>
+                            {% endif %}
+                            </p>
+                        {% endfor %}                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

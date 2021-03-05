@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockin' Recipes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="d-flex justify-content-between border-bottom border-dark px-5 py-2 text-white">
+        
+        <h3 class="mr-5 h3">Want to Change the Track {{logged_in_user.first_name}}?</h3>
+
+        <div class="row">
+            <a class="mr-5" href="/recipes/create"><u>Add Your Recipe</u></a>
+            <a class="mr-5" href="/dashboard"><u>Dashboard</u></a>
+            <a class="mr-5" href="/logout"><u>Log Off</u></a>
+        </div>
+                
+    </header>
+
+    <div class="container  background mt-4 d-flex justify-content-center pt-4 img">
+        <div class="container mx-auto pr-5 pl-5">
+                
+            <form action="/recipes/{{this_recipe.id}}/process_edit" method="post">
+                {% csrf_token %}
+
+                <div class="form-group d-flex ml-5 mr-5 ">
+                    <label class="mr-3 label_create" for="title">Recipe Title:</label>
+                    <input class="w-75" type="text" name="title" id=""
+                    value="{{this_recipe.title}}">        
+                </div>
+
+                <div class="form-group d-flex justify-content-between ml-5 mr-5">
+                    <label class="mr-3 label_create" for="ingredients">Ingredients:</label>
+                    <textarea 
+                    class="form-control border border-dark"
+                    name="ingredients" id="ingredients" 
+                    style="height: 100px"
+                    >{{this_recipe.ingredients}}</textarea>
+                </div>
+
+                <div class="form-group d-flex justify-content-between ml-5 mr-5">
+                    <label class="mr-3 label_create" for="description">Description:</label>
+                    <textarea 
+                    class="form-control border border-dark"
+                    name="description" id="description" 
+                    style="height: 100px">{{this_recipe.description}}</textarea>
+                </div>
+
+                <div class="form-group d-flex justify-content-between ml-5 mr-5">
+                    <label class="mr-2 label_create" for="instructions">Instructions:</label>
+                    <textarea 
+                    class="form-control border border-dark ml-1"
+                    name="instructions" id="instructions" 
+                    style="height: 100px"
+                    >{{this_recipe.instructions}}</textarea>
+                </div>
+
+                <div class="form-group d-flex justify-content-between ml-5 mr-5">
+                    <label class="mr-5 label_create" for="notes">Notes:</label>
+                    <textarea 
+                    class="form-control border border-dark ml-5"
+                    name="notes" id="notes" 
+                    style="height: 100px"
+                    >{{this_recipe.notes}}</textarea>
+                </div>
+                
+                <div class="container d-flex justify-content-center">
+                    <div class="row">
+                        <a class="mr-3" href="/dashboard"><u>Cancel</u></a>
+                        <button class="button" type="submit">Update</button>
+                    </div>
+                </div>
+    
+            </form>
+
+            {% if messages %}
+                <ul class="messages">    
+                    {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+        </div>
+    </div>
+    
+</body>
+</html>
